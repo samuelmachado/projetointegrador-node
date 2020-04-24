@@ -9,7 +9,7 @@ class Controller {
     res.send([country1, country2]);
   }
 
-  async render(req, res) {
+  async renderChart(req, res) {
     res.sendFile(path.resolve("./views/index.html"));
   }
 }

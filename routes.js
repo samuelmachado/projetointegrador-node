@@ -8,5 +8,5 @@ routes.get("/", (req, res) => {
 });
 
 routes.get("/data", Controller.index);
-routes.get("/render", Controller.render);
+routes.get("/renderChart", Controller.renderChart);
 module.exports = routes;
