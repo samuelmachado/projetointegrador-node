@@ -1,0 +1,60 @@
+<!-- Created by Giuliano Bertoti - Software Engineering class - 2020-1 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>PI - Software Engineering</title>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+
+    <script>
+      $(document).ready(function() {
+        google.charts.load("current", { packages: ["corechart", "bar"] });
+        google.charts.setOnLoadCallback(drawMaterial);
+
+        function drawMaterial() {
+          // REST request
+          $.getJSON("/data", function(data) {
+            console.log(data);
+            var data = google.visualization.arrayToDataTable([
+              ["Country", "Population"],
+              [data[0].name, data[0].value],
+              [data[1].name, data[1].value]
+            ]);
+
+            var materialOptions = {
+              chart: {
+                title: "Population of Countries"
+              },
+              hAxis: {
+                title: "Total Population",
+                minValue: 0
+              },
+              vAxis: {
+                title: "City"
+              },
+              bars: "horizontal"
+            };
+            var materialChart = new google.charts.Bar(
+              document.getElementById("chart_div")
+            );
+            materialChart.draw(data, materialOptions);
+          });
+        }
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="chart_div"></div>
+  </body>
+</html>

@@ -1,11 +1,22 @@
+let routes = require("./routes");
+var express = require("express");
 
-var express = require('express');
-var app = express();
+class App {
+  constructor() {
+    this.server = express();
+    this.middlewares();
+    this.routes();
+  }
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
+  middlewares() {
+    this.server.use(express.json());
+    this.server.use(express.static(__dirname + "/views"));
+  }
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
-});
+  routes() {
+    this.server.use(routes);
+  }
+}
+
+let app = new App().server;
+app.listen(3333);
